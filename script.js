@@ -1,23 +1,37 @@
-let acessaFuncionamento = document.getElementById('funcionamento');
-let textoTarefa = document.getElementById('texto-tarefa');
-let pegaInpult = textoTarefa.value;
-let acessaOl = document.getElementById('lista-tarefas');
-let BottonTarefa = document.getElementById('criar-tarefa');
+var acessaFuncionamento = document.getElementById('funcionamento');
+var input = document.getElementById('texto-tarefa');
+var pegaTextoInpult = input.value;
+var ol = document.getElementById('lista-tarefas');
+var BottonTarefa = document.getElementById('criar-tarefa');
 // oque o botão deve fazer ? ele deve pega o texto do pegaInpult e adiciona-lo junto com uma <li> dentro da acessaOl
 
-function cleanBotton (){
-    let textoTarefa = document.getElementById('texto-tarefa');
-    let criaTexto = textoTarefa.value="";
-    console.log(criaTexto);
+
+// A página ao ser carregada deve possuir os itens da lista sem o estilo CSS background-color: gray;
+// Os itens da lista ao serem clicados devem passar a ter o estilo CSS background-color: gray.
+
+//devo entrar na li
+
+function inputVazio (){
+    return input.value.length;
 }
 
-BottonTarefa.addEventListener('click', function () {
-  let textoTarefa = document.getElementById('texto-tarefa');
-  let criaLi = document.createElement('li');
-  let pegaInpult = textoTarefa.value;
-  let pegaTexto = document.createTextNode(pegaInpult);
-  acessaOl.appendChild(criaLi);
-  criaLi.appendChild(pegaTexto);
-  cleanBotton();
-});
+function criaLista () {
+    var li = document.createElement('li');
+    li.classList.add('lista')
+    li.appendChild(document.createTextNode(input.value));
+    ol.appendChild(li);
+    input.value = "";
 
+    function alteraBackground() {
+        li.classList.toggle('listaSelecionada');
+    }
+    li.addEventListener('click', alteraBackground);
+}
+
+BottonTarefa.addEventListener('click', addInput)
+
+function addInput () {
+    if (inputVazio () > 0){
+        criaLista();
+    }
+}
