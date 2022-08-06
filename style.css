@@ -7,3 +7,6 @@
 .completed{
     text-decoration: line-through solid black;
 }
+.invisible{
+    display: none;
+}

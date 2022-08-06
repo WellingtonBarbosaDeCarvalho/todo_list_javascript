@@ -58,3 +58,14 @@ function limpaLista (){
     })
 }
 limpaLista()
+
+function btnFinalizados () {
+    let btnFinalizados = document.querySelector('#remover-finalizados');
+    btnFinalizados.addEventListener('click', function () {
+        let listFinalizados = document.querySelectorAll('.completed');
+        for (let index = 0; index < listFinalizados.length; index += 1){
+          ol.removeChild(listFinalizados[index]);
+        }
+    })
+}
+btnFinalizados()
