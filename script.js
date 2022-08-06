@@ -50,3 +50,11 @@ function riscaTarefa (){
     })
 }
 riscaTarefa();
+
+function limpaLista (){
+    var pegaReset = document.querySelector('#apaga-tudo');
+    pegaReset.addEventListener('click', function() {
+        document.querySelector('ol').innerHTML="";
+    })
+}
+limpaLista()
