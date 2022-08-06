@@ -17,16 +17,24 @@ function inputVazio (){
 
 function criaLista () {
     var li = document.createElement('li');
-    li.classList.add('lista')
     li.appendChild(document.createTextNode(input.value));
     ol.appendChild(li);
     input.value = "";
 
-    function alteraBackground() {
+    function alteraBackground(e) {
+        let pegaLi = document.querySelectorAll('li');
+        var event = e.target.closest('li');
+        if(document.querySelectorAll('.listaSelecionada').length === 0){
         li.classList.toggle('listaSelecionada');
+    } else if(document.querySelectorAll('.listaSelecionada').length === 1){
+        document.querySelectorAll('.listaSelecionada')[0].classList.remove('listaSelecionada');
+        event.classList.add('listaSelecionada')
     }
-    li.addEventListener('click', alteraBackground);
 }
+ li.addEventListener('click', alteraBackground);
+
+    }
+
 
 BottonTarefa.addEventListener('click', addInput)
 
@@ -35,3 +43,12 @@ function addInput () {
         criaLista();
     }
 }
+// function verifySelect (e){
+//     let pegaSelecionada = document.querySelectorAll('.listaSelecionada');
+//     if (pegaSelecionada.length > 1){
+//         let targetSelect = e.target.closest('li');
+//         pegaSelecionada[0].classList.remove('listaSelecionada');
+//         e.targetSelect.
+//     }
+// }
+// ol.addEventListener('click', verifySelect)
