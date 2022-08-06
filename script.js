@@ -28,7 +28,7 @@ function criaLista () {
         li.classList.toggle('listaSelecionada');
     } else if(document.querySelectorAll('.listaSelecionada').length === 1){
         document.querySelectorAll('.listaSelecionada')[0].classList.remove('listaSelecionada');
-        event.classList.add('listaSelecionada')
+        event.classList.add('listaSelecionada');
     }
 }
  li.addEventListener('click', alteraBackground);
@@ -43,12 +43,10 @@ function addInput () {
         criaLista();
     }
 }
-// function verifySelect (e){
-//     let pegaSelecionada = document.querySelectorAll('.listaSelecionada');
-//     if (pegaSelecionada.length > 1){
-//         let targetSelect = e.target.closest('li');
-//         pegaSelecionada[0].classList.remove('listaSelecionada');
-//         e.targetSelect.
-//     }
-// }
-// ol.addEventListener('click', verifySelect)
+function riscaTarefa (){
+    ol.addEventListener('dblclick', function (e){
+        let pegaTarget = e.target.closest('li');
+        pegaTarget.classList.toggle('completed');
+    })
+}
+riscaTarefa();
