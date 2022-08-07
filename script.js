@@ -5,11 +5,7 @@ var ol = document.getElementById('lista-tarefas');
 var BottonTarefa = document.getElementById('criar-tarefa');
 // oque o botão deve fazer ? ele deve pega o texto do pegaInpult e adiciona-lo junto com uma <li> dentro da acessaOl
 
-
-// A página ao ser carregada deve possuir os itens da lista sem o estilo CSS background-color: gray;
-// Os itens da lista ao serem clicados devem passar a ter o estilo CSS background-color: gray.
-
-//devo entrar na li
+let listPush = [];
 
 function inputVazio (){
     return input.value.length;
@@ -19,6 +15,7 @@ function criaLista () {
     var li = document.createElement('li');
     li.appendChild(document.createTextNode(input.value));
     ol.appendChild(li);
+    listPush.push(input.value);
     input.value = "";
 
     function alteraBackground(e) {
@@ -51,21 +48,52 @@ function riscaTarefa (){
 }
 riscaTarefa();
 
+function deletaRiscado (){
+    let btnFinalizados = document.querySelector('#remover-finalizados');
+    let pegaRisck = document.getElementsByClassName('completed');
+    let pegaOl = document.querySelector('ol');
+    btnFinalizados.addEventListener('click', function () {
+        for (let i = pegaRisck.length -1; i >=0; i -= 1){
+            pegaRisck[i].remove()
+        }
+})
+}
+deletaRiscado();
+
 function limpaLista (){
     var pegaReset = document.querySelector('#apaga-tudo');
     pegaReset.addEventListener('click', function() {
         document.querySelector('ol').innerHTML="";
     })
 }
-limpaLista()
+limpaLista() 
 
-function btnFinalizados () {
-    let btnFinalizados = document.querySelector('#remover-finalizados');
-    btnFinalizados.addEventListener('click', function () {
-        let listFinalizados = document.querySelectorAll('.completed');
-        for (let index = 0; index < listFinalizados.length; index += 1){
-          ol.removeChild(listFinalizados[index]);
+// //salva no localStorage
+function saveTheList () {
+    let btnSave = document.querySelector('#salvar-tarefas');
+    btnSave.addEventListener('click', function () {
+        let listClass = [];
+        let liFull = document.querySelectorAll('li');
+        for (let i = 0; i < liFull.length; i += 1) {
+            listClass.push(liFull[i].className);
         }
+        localStorage.setItem('class-item', JSON.stringify(listClass));
+        localStorage.setItem('list-text', JSON.stringify(listPush));
     })
 }
-btnFinalizados()
+saveTheList();
+
+function pushLocalStorage () {
+    if (localStorage.getItem('list-text') === null || localStorage.getItem('class-item') === null ) {
+        localStorage.setItem('list-text', JSON.stringify([]));
+        localStorage.setItem('class-item', JSON.stringify([]));
+      } else {
+        let salvaSalva = JSON.parse(localStorage.getItem('list-text'));
+        let classeSalva = JSON.parse(localStorage.getItem('class-item'));
+        for (let index = 0; index < salvaSalva.length; index += 1) {
+          let item = document.createElement('li');
+          item.innerText = salvaSalva[index];
+          item.className = classeSalva[index];
+          ol.appendChild(item);}}
+}
+pushLocalStorage()
